@@ -2,8 +2,8 @@ FROM ubuntu16
 LABEL maintainer "ittou <VYG07066@gmail.com>"
 ENV DEBIAN_FRONTEND noninteractive
 ENV VITIS_VER=2019.2
-ARG URIS=smb://192.168.0.217/Share/Vitis2019.2/
-ARG VITIS_MAIN=Xilinx_Vitis_2019.2_1024_1831.tar.gz
+ARG URIS=smb://192.168.103.223/Share/Vitis2019.2/
+ARG VITIS_MAIN=Xilinx_Vitis_2019.2_1106_2127.tar.gz
 ENV USER=${USER:-builduser}
 ENV USER_ID=${LOCAL_UID:-1000}
 ENV GROUP_ID=${LOCAL_GID:-1000}
