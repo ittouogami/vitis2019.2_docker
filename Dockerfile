@@ -2,7 +2,8 @@ FROM ubuntu18
 LABEL maintainer "ittou <VYG07066@gmail.com>"
 ENV DEBIAN_FRONTEND noninteractive
 ENV VITIS_VER=2019.2
-ARG URIS=smb://192.168.0.215/Share/Vitis2019.2/
+ARG IP
+ARG URIS=smb://$IP/Share/Vitis2019.2/
 ARG VITIS_MAIN=Xilinx_Vitis_2019.2_1106_2127.tar.gz
 ENV USER=${USER:-builduser}
 ENV USER_ID=${LOCAL_UID:-1000}
