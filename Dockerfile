@@ -1,10 +1,10 @@
 FROM ubuntu18
 LABEL maintainer "ittou <VYG07066@gmail.com>"
 ENV DEBIAN_FRONTEND noninteractive
-ARG VITIS_VER=2019.2
-ARG IP=192.168.0.200
+ARG VITIS_VER
+ARG VITIS_MAIN
+ARG IP
 ARG URIS=smb://${IP}/Share/Vitis${VITIS_VER}/
-ARG VITIS_MAIN=Xilinx_Vitis_2019.2_1106_2127.tar.gz
 ENV USER=${USER:-builduser}
 ENV USER_ID=${LOCAL_UID:-1000}
 ENV GROUP_ID=${LOCAL_GID:-1000}
@@ -17,15 +17,12 @@ RUN \
           locales && locale-gen en_US.UTF-8 && \
   apt-get -y -qq --no-install-recommends install \
           software-properties-common \
-          build-essential \
           binutils \
-          ncurses-dev \
           u-boot-tools \
-          file tofrodos \
+          file \
+          tofrodos \
           iproute2 \
-          gawk \
           net-tools \
-          libncurses5-dev \
           tftp \
           tftpd-hpa \
           zlib1g-dev \
@@ -47,12 +44,11 @@ RUN \
           libglib2.0-dev \
           libtool-bin \
           cpio \
-          python \
-          python3 \
           pkg-config \
-          git \
           ocl-icd-opencl-dev \
           smbclient \
+          notification-daemon \
+          chromium-browser \
           libjpeg62-dev && \
   dpkg --add-architecture i386 && \
   apt-get update && \
@@ -70,7 +66,7 @@ RUN \
   chown ${USER_ID}:${GROUP_ID} -R /opt && \
   chown ${USER_ID}:${GROUP_ID} -R /VITIS-INSTALLER
 USER $USER
-RUN smbget -O -a guest ${URIS}${VITIS_MAIN} | gzip -dcq - | tar x --strip-components=1 -C /VITIS-INSTALLER && \
+RUN smbget -O -a ${URIS}${VITIS_MAIN} | gzip -dcq - | tar x --strip-components=1 -C /VITIS-INSTALLER && \
   /VITIS-INSTALLER/xsetup \
     --agree 3rdPartyEULA,WebTalkTerms,XilinxEULA \
     --batch Install \
